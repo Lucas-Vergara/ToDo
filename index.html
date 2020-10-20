@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div id="navbar">     
+        <div class="dropdown">
+            <id id="projects">
+                <div>proyects</div>
+                <div id="myDropdown" class="dropdown-content">
+                </div>
+            </id>
+
+        </div>
+
+        <table id="tabParent">
+            <td>Tasks</td><td>Scheduled</td><td>Today</td>
+        </table>
+
+        <div id="new-task">New Task</div>
+                
+    </div>
+
+    <div id="content">
+    </div>
+
+    <div class="modal-bg">
+        <div class="modal">
+            <form action="new task">
+                New Task <br>
+                <label for="title">Title</label>
+                <input type="text" name="title"><br>
+                <label for="description">Description</label>
+                <textarea name="description" id="" cols="30" rows="10"></textarea><br><br>
+                <input type="button" id="tasksubmit" value="Submit">
+            </form>
+            <span class="modal-close">x</span>
+        </div>
+    </div>
+    <script src="main.js"></script> 
+</body>
+</html>
