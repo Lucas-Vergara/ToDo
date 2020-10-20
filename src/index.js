@@ -1,8 +1,10 @@
 import { compareAsc, format } from 'date-fns';
-import {addTask, addCreator, newProject, addProject} from './project';
+import {addTask, addCreator, newProject, addProject, aCreator} from './project';
 
 addProject();
 addCreator();
+
+aCreator('All Projects');
 
 
 

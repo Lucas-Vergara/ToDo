@@ -82,24 +82,34 @@ const aCreator = (name) => {
     let a = document.createElement('a');
     a.innerHTML = name
     document.getElementById('myDropdown').appendChild(a)
+    a.addEventListener('click', function(){
+        goToProject(name)
+    })
 }
 
 const goToProject = (name) => {
+    if (name == 'All Projects'){
+        location.reload()
+    }
     clear();
     document.getElementById('content').classList.add('project-content')
     let project = JSON.parse(storage[name])
-    for (let i = 0; i < project.length; i++) {
-        const task = project[i];
-        let content = document.getElementById('content')
-        let checkbox = createCheckbox(task.title)
-        let div = document.createElement('div')
-        div.classList.add('closed-task')
-        div.appendChild(checkbox.input)
-        div.appendChild(checkbox.label)
-        content.appendChild(div)
-    }
+    renderTasks(project)
     let projectsButton = document.getElementById('projects').firstElementChild
     projectsButton.innerHTML = name
+}
+
+const renderTasks = (project) => {
+    for (let i = 0; i < project.length; i++) {
+        let content = document.getElementById('content')
+        let checkbox = createCheckbox(project[i].title)
+        let task = document.createElement('div')
+        task.classList.add('closed-task')
+        task.appendChild(checkbox.input)
+        task.appendChild(checkbox.label)
+        openTask(project[i], task)
+        content.appendChild(task)
+    }
 }
 
 const createCheckbox = (title) => {
@@ -134,5 +144,15 @@ const createCheckbox = (title) => {
     return {input, label}
 }
 
-
-export {addTask, task, newProject, addProject, addCreator}
+const openTask = (project, task) => {
+    let div = document.createElement('div')
+    div.innerHTML = project.description
+    task.addEventListener('click', function(){
+        if (task.children.length == 2) {
+            task.appendChild(div)
+        } else {
+            task.removeChild(task.lastChild)
+        }
+    })
+}
+export {addTask, task, newProject, addProject, addCreator, aCreator}
