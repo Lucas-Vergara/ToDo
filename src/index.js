@@ -1,10 +1,19 @@
 import { compareAsc, format } from 'date-fns';
 import {addTask, addCreator, newProject, addProject, aCreator} from './project';
 
+
 addProject();
 addCreator();
 
-aCreator('All Projects');
+
+
+let date = document.getElementById('picker')
+const SimplePicker = require('simplepicker');
+let myPicker = new SimplePicker(date);
+
+date.addEventListener('click', function(){
+    myPicker.open()
+})
 
 
 

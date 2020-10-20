@@ -1,6 +1,5 @@
 const storage = window.localStorage
 
-
 const newProject = (name) => {
 
     let tasks = []
@@ -25,11 +24,12 @@ const task = (title, description, date, priority) => {
 
 const addTask = (form) => {
     const project = document.getElementById('projects').firstElementChild.innerHTML
-    console.log(project)
-    const newTask = task(form.title.value, form.description.value, 'date', 'priority')
+    const newTask = task(form.title.value, form.description.value, form.date.value, 'priority')
     let tasks = JSON.parse(storage.getItem(project))
     tasks.push(newTask)
-    storage.setItem(project, JSON.stringify(tasks))   
+    storage.setItem(project, JSON.stringify(tasks))
+    clear();
+    renderTasks(JSON.parse(window.localStorage[project]))
 }
 
 
@@ -76,6 +76,7 @@ const addProject = () => {
         aCreator(projectName);
         document.getElementById('content').appendChild(div)
     }
+    aCreator('All Projects');
 }
 
 const aCreator = (name) => {
@@ -100,16 +101,25 @@ const goToProject = (name) => {
 }
 
 const renderTasks = (project) => {
+    let content = document.getElementById('content')
     for (let i = 0; i < project.length; i++) {
-        let content = document.getElementById('content')
         let checkbox = createCheckbox(project[i].title)
         let task = document.createElement('div')
+        let span = document.createElement('span')
+        span.style = 'float: right; margin-top: 5px;'
+        span.innerText = project[i].date
         task.classList.add('closed-task')
         task.appendChild(checkbox.input)
         task.appendChild(checkbox.label)
+        task.appendChild(span)
         openTask(project[i], task)
         content.appendChild(task)
     }
+    let div = document.createElement('div')
+    div.innerText = 'Clear completed tasks'
+    div.id = 'clear-tasks'
+    div.addEventListener('click', clearTasks)
+    content.appendChild(div)
 }
 
 const createCheckbox = (title) => {
@@ -146,13 +156,37 @@ const createCheckbox = (title) => {
 
 const openTask = (project, task) => {
     let div = document.createElement('div')
-    div.innerHTML = project.description
+    let description = document.createElement('div')
+    let date = document.createElement('div')
+    date.innerHTML = project.date
+    description.innerHTML = project.description
+    div.appendChild(description)
+    // div.appendChild(date)
     task.addEventListener('click', function(){
-        if (task.children.length == 2) {
+        if (task.children.length == 3) {
             task.appendChild(div)
         } else {
             task.removeChild(task.lastChild)
         }
     })
 }
+
+const removeTask = (i) => {
+    const project = JSON.parse(window.localStorage[document.getElementById('projects').innerText])
+    project.splice(i,1)
+    window.localStorage.setItem(document.getElementById('projects').innerText, JSON.stringify(project))
+    clear()
+    renderTasks(project)
+}
+
+const clearTasks = () => {
+    const tasks = document.querySelectorAll('.inp-cbx')
+    for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i].checked == true){
+            removeTask(i)
+        }   
+    }  
+} 
+
+
 export {addTask, task, newProject, addProject, addCreator, aCreator}
