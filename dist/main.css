@@ -192,8 +192,9 @@ body {
     display: block !important;
 }
 
-
-
+.open-task {
+    padding: 30px 0px;
+}
 
 
 

@@ -173,6 +173,7 @@ const openTask = (project, task) => {
     description.innerHTML = project.description
     div.appendChild(description)
     // div.appendChild(date)
+    div.classList.add('open-task')
     task.addEventListener('click', function(){
         if (task.children.length == 3) {
             task.appendChild(div)
