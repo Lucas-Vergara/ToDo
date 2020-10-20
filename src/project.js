@@ -92,8 +92,11 @@ const goToProject = (name) => {
         const task = project[i];
         let content = document.getElementById('content')
         let checkbox = createCheckbox(task.title)
-        content.appendChild(checkbox.input)
-        content.appendChild(checkbox.label)
+        let div = document.createElement('div')
+        div.classList.add('closed-task')
+        div.appendChild(checkbox.input)
+        div.appendChild(checkbox.label)
+        content.appendChild(div)
     }
     let projectsButton = document.getElementById('projects').firstElementChild
     projectsButton.innerHTML = name
