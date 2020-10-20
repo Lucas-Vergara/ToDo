@@ -171,7 +171,7 @@ body {
     border-radius: 5px;
 }
 
-#clear-tasks{
+.clear-tasks{
     width: 500px;
     margin: 20px auto;
     text-decoration: underline;

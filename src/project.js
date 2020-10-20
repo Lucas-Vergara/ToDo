@@ -117,9 +117,20 @@ const renderTasks = (project) => {
     }
     let div = document.createElement('div')
     div.innerText = 'Clear completed tasks'
-    div.id = 'clear-tasks'
+    div.classList.add('clear-tasks')
     div.addEventListener('click', clearTasks)
+    let div2 = document.createElement('div')
+    div2.classList.add('clear-tasks')
+    div2.innerText = 'Delete Project'
+    div2.addEventListener('click', deleteProject)
     content.appendChild(div)
+    content.appendChild(div2)
+}
+
+const deleteProject = () => {
+    let project = document.getElementById('projects').innerText
+    window.localStorage.removeItem(project)
+    location.reload()
 }
 
 const createCheckbox = (title) => {
